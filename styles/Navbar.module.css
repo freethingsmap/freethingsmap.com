@@ -1,0 +1,6 @@
+.postMenu {
+  z-index: 999;
+}
+.container.isPinned {
+  border-bottom: solid 1px #ddd;
+}
