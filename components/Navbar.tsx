@@ -5,6 +5,8 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { LogoHeader, LogoRoundSvg } from './Logo';
 import styles from '@/styles/Navbar.module.css'
 import Link from 'next/link';
+import { OnStreetIcon, OwnerPickupIcon } from './Icon';
+import classNames from 'classnames';
 
 export const NAV_PADDINGX_CLASSNAME = 'px-4';
 
@@ -14,22 +16,34 @@ const navigation = [
 ]
 // const navigation = [] as any[]
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+const AddFreeDropButton = ({ onClick }: any) => (
+  <button onClick={onClick} type="button" role="button" aria-label="Drop a free item"
+    className="px-5 py-2 rounded-full bg-black text-white font-mono uppercase tracking-wider"
+  >
+    <Bars3BottomLeftIcon className="h-4 inline-block align-middle -mt-1 mr-1" /> List Free Item(s)
+  </button>
+);
 
-const AddFreeDropButton = () => (
-  <Link href="/drop" className="inline-block">
-    <button type="button" role="button" aria-label="Drop a free item"
-      className="px-5 py-2 rounded-full bg-black text-white font-mono uppercase tracking-wider"
-    >
-      <Bars3BottomLeftIcon className="h-4 inline-block align-middle -mt-1 mr-1" /> List a Free Item
-    </button>
+const PickupOption = ({ children, active, href }: any) => (
+  <Link href={href} aria-label="List free item(s) for street pickup">
+    <div className={classNames(
+      "sm:block transition-all flex items-center cursor-pointer p-3 sm:mr-6 mb-5 sm:mb-6 rounded-lg border-2 border-stone-300 hover:border-stone-700 sm:max-w-[220px]",
+      {
+        "scale-0": !active,
+        "scale-100": active,
+      }
+    )}>
+      {children}
+    </div>
   </Link>
 );
 
 export default function Navbar() {
   const [activeUser, setActiveUser] = useState();
+  const [isDroppingFreeItems, setIsDroppingFreeItems] = useState(false);
+  const onDropFreeItems = () => {
+    setIsDroppingFreeItems(!isDroppingFreeItems);
+  };
 
   useEffect(() => {
     const el = document.querySelector(styles.container)
@@ -48,7 +62,7 @@ export default function Navbar() {
       {({ open }: { open: boolean }) => (
         <>
           <div className={classNames(
-            "mx-auto",
+            "mx-auto z-[1000]",
             NAV_PADDINGX_CLASSNAME,
           )}>
             <div className="relative flex items-center justify-between py-3">
@@ -75,7 +89,7 @@ export default function Navbar() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="mr-5 sm:block hidden">
-                  <AddFreeDropButton />
+                  <AddFreeDropButton onClick={onDropFreeItems} />
                 </div>
                 {/* Profile dropdown */}
                 <Menu as="div" className={
@@ -138,6 +152,52 @@ export default function Navbar() {
                 </Menu>
               </div>
             </div>
+            <div className={classNames(
+              "relative py-6 px-6 box-border -ml-4 -mr-4 flex overflow-hidden transition-all flex-col items-center justify-center shadow-2xl",
+              {
+                "h-0 pt-0 pb-0 mb-0 opacity-0": !isDroppingFreeItems,
+                "min-h-[285px] md:h-[285px] opacity-100 pb-7 mb-8": isDroppingFreeItems,
+              }
+            )}>
+              <button type="button" aria-label="Cancel list free items" onClick={onDropFreeItems}>
+                <XMarkIcon
+                  className="absolute top-0 right-0 h-12 p-3 text-black"
+                />
+              </button>
+              <h2 className={classNames(
+                "font-mono text-stone-600 transition-transform mt-5 mb-5 font-medium text-xl sm:mr-8 mr-4 text-center",
+                {
+                  "scale-0": !isDroppingFreeItems,
+                  "scale-100": isDroppingFreeItems
+                }
+              )}>
+                List free item(s) for your community to take.
+              </h2>
+              <div className="flex-1 flex flex-col sm:flex-row">
+                <PickupOption href="/list/street-pickup" active={isDroppingFreeItems}>
+                  <h3 className="font-bold text-xl mb-2 font-mono mr-3 min-w-[80px]">
+                    Street Pickup
+                  </h3>
+                  <div>
+                    <OnStreetIcon size={60} className="mb-3 py-1.5" />
+                    <p className="leading-snug text-sm text-stone-700">
+                      The item(s) are on the street outside and people can pick them up.
+                    </p>
+                  </div>
+                </PickupOption>
+                <PickupOption href="/list/pickup-with-owner" active={isDroppingFreeItems}>
+                  <h3 className="font-bold text-xl mb-2 font-mono mr-3 min-w-[80px]">
+                    Pickup with Owner
+                  </h3>
+                  <div>
+                    <OwnerPickupIcon height={60} className="mb-3 py-1.5" />
+                    <p className="leading-snug text-sm text-stone-700">
+                      The item(s) are with the owner and the owner is willing to meet for pickup.
+                    </p>
+                  </div>
+                </PickupOption>
+              </div>
+            </div>
           </div>
 
           <Disclosure.Panel className="sm:hidden">
@@ -157,7 +217,7 @@ export default function Navbar() {
                 </Disclosure.Button>
               ))}
               <div className="pt-2 ml-3">
-                <AddFreeDropButton />
+                <AddFreeDropButton onClick={onDropFreeItems} />
               </div>
             </div>
           </Disclosure.Panel>

@@ -57,7 +57,7 @@ const SM_BREAKPOINT = 640;
 const LG_BREAKPOINT = 1024;
 
 const ActiveCommunity = ({ name }: { name: string }) => (
-  <span className="inline-block mr-1.5 mb-1.5 px-2 py-1 text-sm rounded-sm shadow-sm border border-gray-500">
+  <span className="inline-block ml-3 mb-1.5 px-2 py-1 text-sm rounded-sm shadow-sm border border-stone-300">
     🏙️ {name}
   </span>
 );
@@ -118,69 +118,76 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={classNames(NAV_PADDINGX_CLASSNAME)}>
-        <h2 className="text-xl font-mono font-light mt-3 mb-3">
+      <div className="mt-6 flex items-stretch">
+        <h2 className="flex-1 text-xl font-mono font-light mt-0 mb-3">
           <div className="text-2xl mb-2 font-medium">
             Your map for free things.
           </div>
           Take it. Report it. Give it away.
         </h2>
-        <div className="my-3">
-          <span className="mr-3 mb-1.5 sm:inline-block block">Active in</span>
-          {
-            ['San Francisco', 'New York City'].map((name) => <ActiveCommunity key={name} name={name} />)
-          }
-          <span className="sm:inline-block block text-sm my-2 sm:mx-3 underline">add your area</span>
+        <div className="my-0">
+          <div className="inline-block">
+            <span className="mb-1.5 sm:inline-block block text-sm text-stone-500">Active in</span>
+            {
+              ['San Francisco', 'New York City'].map((name) => <ActiveCommunity key={name} name={name} />)
+            }
+            <div className="text-right mr-2 mt-1 text-sm text-stone-500">add your location</div>
+          </div>
         </div>
-        <section className="my-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:mb-3">
-            <div className="text-base sm:mt-0">
-              <Highlight>Take it</Highlight>
-              <span className="ml-4 text-lg font-mono italic font-light mr-4">
-                Recently reported <span className="font-medium">Free Stuff</span>
-              </span>
-            </div>
+        </div>
+      <section className="my-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:mb-3">
+          <div className="text-base sm:mt-0">
+            <Highlight>Take it</Highlight>
+            <span className="ml-4 text-lg font-mono italic font-light mr-4">
+              Recently Reported <span className="font-medium">Free Things</span>
+            </span>
           </div>
-          <div className="mb-4">
-            <LocationSearch />
-          </div>
-          <div className="relative" dir="ltr">
-            <div
-              onClick={onSlideLeft}
-              className={classNames(
-                "bg-gradient-to-r from-black/20 to-transparent via-black/10",
-                "z-10 group cursor-pointer font-mono absolute mb-[18px] left-0 top-0 bottom-0 my-1 flex items-center font-medium",
-                {
-                  "hidden": !hasPrevScrollableFreeItems,
-                }
-              )}>
-              <div className="flex items-center">
-                <ChevronLeftIcon className="inline-block h-8 p-2 ml-2 shadow-lg rounded-full bg-white mx-1 text-black" />
-              </div>
-            </div>
-            <div ref={slideableListRef} className="flex w-full overflow-x-auto snap-x">
+        </div>
+        <div className="mb-4">
+          <LocationSearch />
+        </div>
+        <div className="relative" dir="ltr">
+          <div
+            onClick={onSlideLeft}
+            className={classNames(
+              "bg-gradient-to-r from-black/20 to-transparent via-black/10",
+              "z-10 group cursor-pointer font-mono absolute mb-[18px] left-0 top-0 bottom-0 my-1 flex items-center font-medium",
               {
-                new Array(NUM_ITEMS).fill(undefined).map((_, i) => <FreeItem width={
-                  layoutRef.current && Math.ceil(layoutRef.current.clientWidth / 3)
-                } idx={i} key={i} />)
+                "hidden": !hasPrevScrollableFreeItems,
               }
-            </div>
-            <div
-              onClick={onSlideRight}
-              className={classNames(
-                "bg-gradient-to-l from-black/20 to-transparent via-black/10",
-                "z-10 group cursor-pointer font-mono absolute mb-[18px] right-0 top-0 bottom-0 my-1 flex items-center font-medium",
-                {
-                  "hidden": !hasMoreScrollableFreeItems,
-                }
-              )}>
-              <div className="flex items-center">
-              <ChevronRightIcon className="inline-block h-8 p-2 mr-2 shadow-lg rounded-full bg-white mx-1 text-black" />
-              </div>
+            )}>
+            <div className="flex items-center">
+              <ChevronLeftIcon className="group-hover:scale-125 transform-gpu transition-transform group-hover:shadow-lg inline-block h-8 p-2 ml-2 shadow-lg rounded-full bg-white mx-1 text-black" />
             </div>
           </div>
-        </section>
-      </main>
+          <div ref={slideableListRef} className="flex w-full overflow-x-auto snap-x">
+            {
+              new Array(NUM_ITEMS).fill(undefined).map((_, i) => <FreeItem width={
+                layoutRef.current && Math.ceil(layoutRef.current.clientWidth / 3)
+              } idx={i} key={i} />)
+            }
+          </div>
+          <div
+            onClick={onSlideRight}
+            className={classNames(
+              "bg-gradient-to-l from-black/20 to-transparent via-black/10",
+              "z-10 group cursor-pointer font-mono absolute mb-[18px] right-0 top-0 bottom-0 my-1 flex items-center font-medium",
+              {
+                "hidden": !hasMoreScrollableFreeItems,
+              }
+            )}>
+            <div className="flex items-center">
+            <ChevronRightIcon className="group-hover:scale-125 transform-gpu transition-transform group-hover:shadow-lg inline-block h-8 p-2 mr-2 shadow-lg rounded-full bg-white mx-1 text-black" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* map */}
+      <section className="my-8">
+        Map
+      </section>
     </Layout>
   )
 }
