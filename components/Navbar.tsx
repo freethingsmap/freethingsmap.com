@@ -78,17 +78,28 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
+                <Link href="/" className="flex-shrink-0 flex items-center">
                   <LogoHeader className={classNames(
                     "hidden md:inline-block"
                   )} size={60} />
                   <LogoRoundSvg className={classNames(
                     "inline-block md:hidden"
                   )} size={60} />
-                </div>
+                </Link>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <div className="mr-5 sm:block hidden">
+                {/* right-hand buttons */}
+                <div className="sm:block hidden">
+                  <Link href="/about" className="uppercase text-sm tracking-wider font-mono text-stone-500 hover:text-black focus:text-black">
+                    About
+                  </Link>
+                </div>
+                <div className="ml-7 sm:block hidden">
+                  <Link href="/contribute" className="uppercase text-sm tracking-wider font-mono text-stone-500 hover:text-black focus:text-black">
+                    Contribute
+                  </Link>
+                </div>
+                <div className="ml-7 mr-5 sm:block hidden">
                   <AddFreeDropButton onClick={onDropFreeItems} />
                 </div>
                 {/* Profile dropdown */}
