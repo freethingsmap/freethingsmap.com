@@ -43,7 +43,7 @@ export default function Navbar() {
   return (
     <Disclosure as="nav" className={classNames(
       styles.container,
-      'bg-white z-50 sticky top-0',
+      'bg-white z-50 sticky top-0 left-0 right-0 max-w-[100vw]',
     )}>
       {({ open }: { open: boolean }) => (
         <>

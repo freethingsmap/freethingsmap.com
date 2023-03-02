@@ -1,7 +1,7 @@
 const LocationSearch = () => (
   <div className="my-0">
     <input type="text" name="location" autoComplete="off"  data-form-type="other"
-      className="text-base min-w-[300px] rounded-none focus:outline-none sm:w-auto border-2 border-gray-300 px-3 py-2 sm:mr-0 mr-2 my-3 md:my-2"
+      className="text-base min-w-[300px] rounded-sm focus:outline-none sm:w-auto border-2 border-stone-300 px-3 py-2 sm:mr-0 mr-2 my-3 md:my-2"
       placeholder='📍 Enter address, city or zipcode'
     />
     <div className="inline-block ml-4 text-sm">
