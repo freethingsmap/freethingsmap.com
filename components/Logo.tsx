@@ -39,7 +39,7 @@ export const LogoHeader = ({
   )}>
     <LogoRoundSvg size={size} className="align-middle mr-3 inline-block" />
     <span
-      className="sm:inline-block text-xl tracking-wider relative top-0.5 inline-block font-mono uppercase italic font-light">
+      className="sm:inline-block text-lg tracking-wider relative top-0.5 inline-block font-mono uppercase italic font-light">
       Free Things Map
     </span>
   </span>

@@ -57,7 +57,8 @@ export default function Navbar() {
   return (
     <Disclosure as="nav" className={classNames(
       styles.container,
-      'bg-white z-50 sticky top-0',
+      "",
+      'bg-white z-50 sticky left-0 right-0 top-0',
     )}>
       {({ open }: { open: boolean }) => (
         <>
@@ -80,22 +81,22 @@ export default function Navbar() {
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <Link href="/" className="flex-shrink-0 flex items-center">
                   <LogoHeader className={classNames(
-                    "hidden md:inline-block"
+                    "hidden lg:inline-block"
                   )} size={60} />
                   <LogoRoundSvg className={classNames(
-                    "inline-block md:hidden"
+                    "inline-block lg:hidden"
                   )} size={60} />
                 </Link>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-4 sm:pr-0">
                 {/* right-hand buttons */}
                 <div className="sm:block hidden">
-                  <Link href="/about" className="uppercase text-sm tracking-wider font-mono text-stone-500 hover:text-black focus:text-black">
+                  <Link href="/about" className="font-mono text-stone-500 hover:text-black focus:text-black">
                     About
                   </Link>
                 </div>
-                <div className="ml-7 sm:block hidden">
-                  <Link href="/contribute" className="uppercase text-sm tracking-wider font-mono text-stone-500 hover:text-black focus:text-black">
+                <div className="ml-8 sm:block hidden">
+                  <Link href="/contribute" className="font-mono text-stone-500 hover:text-black focus:text-black">
                     Contribute
                   </Link>
                 </div>

@@ -20,7 +20,12 @@ export default function ListingForm({
     setListing({ name, description });
   }, [setListing, name, description]);
   return (
-    <article className="w-[400px] px-4 py-5 rounded-md shadow-2xl border">
+    <article
+      className="w-[400px] px-4 py-5 rounded-md shadow-2xl border"
+      style={{
+        boxShadow: '0 11px 34px 0 rgb(0 0 0 / 20%)',
+      }}
+    >
       {
         isNumbered && (
           <div className="text-stone-500 text-xs mb-2">
